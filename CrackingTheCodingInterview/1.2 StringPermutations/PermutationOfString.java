@@ -1,7 +1,6 @@
 package codinginterview.algorithms;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 
 public class PermutationOfString {
 
@@ -11,30 +10,16 @@ public class PermutationOfString {
         original = original.toLowerCase();
         toTest = toTest.toLowerCase();
 
+        // check simple conditions early
         if (original.equals(toTest)) return true;
         if (original.length() != toTest.length()) return false;
 
-        Map<Character, Integer> originalCharsToFrequencies = getCharsToFrequencyMap(original);
-        Map<Character, Integer> toTestCharsToFrequencies = getCharsToFrequencyMap(toTest);
+        char[] sortedOriginal = original.toCharArray();
+        Arrays.sort(sortedOriginal);
+        char[] sortedToTest = toTest.toCharArray();
+        Arrays.sort(sortedToTest);
 
-        return originalCharsToFrequencies.equals(toTestCharsToFrequencies);
-    }
-
-    static Map<Character, Integer> getCharsToFrequencyMap(String s) {
-        Map<Character, Integer> charsToFrequencies = new HashMap<>();
-
-        for (Character c : s.toCharArray()) {
-            Integer frequency = charsToFrequencies.get(c);
-            if (frequency != null) {
-                frequency++;
-                charsToFrequencies.put(c, frequency);
-            }
-            else {
-                charsToFrequencies.put(c, 1);
-            }
-        }
-
-        return charsToFrequencies;
+        return sortedOriginal.equals(sortedToTest);
     }
 
     public static void main(String[] args) {
